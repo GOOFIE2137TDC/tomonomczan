@@ -8,4 +8,5 @@ int main()
         suma += i;
     }
     cout << "suma: " << suma << endl;
+    retourn 0;
 }
