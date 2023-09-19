@@ -1,28 +1,11 @@
-#include <iostream>
-#include <string>
+#include <iosstream>
+using namespace std;
 
-char getCharFromString(const std::string& str, int position) {
-    
-    if (position >= 0 && position < str.length()) {
-        
-        return str[position];
-    } else {
-       
-        return '\0';
+int main() 
+{
+    int suma{};
+    for(int i = 1; i <= 6; i++) {
+        suma += i;
     }
-}
-
-int main() {
-    std::string myString = "Przyklad";
-    int position = 3; 
-
-    char result = getCharFromString(myString, position);
-
-    if (result != '\0') {
-        std::cout << "Znak na pozycji " << position << " to: " << result << std::endl;
-    } else {
-        std::cout << "Pozycja " << position << " jest nieprawidłowa." << std::endl;
-    }
-
-    return 0;
+    cout << "suma: " << suma << endl;
 }
