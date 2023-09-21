@@ -1,12 +1,9 @@
 #include <iostream>
 using namespace std;
 
-int main() 
-{
-    int suma{};
-    for(int i = 1; i <= 6; i++) {
-        suma += i;
-    }
-    cout << "suma: " << suma << endl;
-    retourn 0;
+int bolkan(int mooscles, int poomps){
+    cin>>mooscles;
+    if poomps = 1
+    return "oh yiss my muscles are going stronker";
+    else "chuj ci w dupe złamasie jebany"
 }
