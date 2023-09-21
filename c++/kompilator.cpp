@@ -1,10 +1,21 @@
-#include <iostream>
-using namespace std;
+#include <iostream> 
+using namespace std; 
 
-int main() {
-    int telefon = 5;
-    int *wsk = &telefon;
-    *wsk = *wsk + 8;
-
-    cout<<"Wartosc zmiennej telefon: "<<*wsk<<"\n";
+void zmien(int* x, int* y) 
+{ 
+    int pomoc;
+    pomoc = *x;
+    *x = *y;
+    *y = pomoc;
+    return
 }
+
+int main() 
+{ 
+    int a = 5, b = 7;
+    int* wska = &a;
+    int* wskb = &b;
+    zmien(wska, wskb);
+    cout<<"a = "<<a<<", b = "<<b;
+    return 0; 
+} 
