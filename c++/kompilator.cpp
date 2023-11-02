@@ -3,21 +3,22 @@
 
 using namespace std;
 
-string usunCyfry(string dane) {
-    string wynik;
-    for (char c : dane) {
-        if (!isdigit(c)) {
-            wynik += c;
+string zamienZnaki(string tekst, string znaki) {
+    for (char& c : tekst) {
+        if (znaki.find(c) != string::npos) {
+            c = '#';
         }
     }
-    return wynik;
+    return tekst;
 }
 
 int main() {
-    string tekst;
+    string tekst, znaki;
     cout << "Podaj tekst: ";
-    cin >> tekst;
-    string wynik = usunCyfry(tekst);
-    cout << "Tekst bez cyfr: " << wynik << endl;
+    getline(cin, tekst);
+    cout << "Podaj znaki do zamiany: ";
+    getline(cin, znaki);
+    string wynik = zamienZnaki(tekst, znaki);
+    cout << "Tekst po zamianie: " << wynik << endl;
     return 0;
 }
