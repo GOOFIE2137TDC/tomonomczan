@@ -1,22 +1,23 @@
 #include <iostream>
 #include <string>
+
 using namespace std;
 
-void wycinam(string tekst, string cos)
-{
-    for (int i = 0; i < tekst.size(); i++)
-    {
-        if (tekst[i] == 'a' || tekst[i] == 'e' || tekst[i] == 'i' || tekst[i] == 'o' || tekst[i] == 'u')
-        {
-            cos += tekst[i];
+string usunCyfry(string dane) {
+    string wynik;
+    for (char c : dane) {
+        if (!isdigit(c)) {
+            wynik += c;
         }
     }
-    cout << cos;
+    return wynik;
 }
 
 int main() {
-    string tekst{};
-    tekst = "informacja";
-    string wynik{};
-    wycinam(tekst, wynik);
+    string tekst;
+    cout << "Podaj tekst: ";
+    cin >> tekst;
+    string wynik = usunCyfry(tekst);
+    cout << "Tekst bez cyfr: " << wynik << endl;
+    return 0;
 }
