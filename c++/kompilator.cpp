@@ -3,20 +3,21 @@
 
 using namespace std;
 
-string zamienLitery(string tekst) {
-    for (char& c : tekst) {
-        if (c == 'a') {
-            c = 'y';
+string usunZnaki(string tekst) {
+    string wynik;
+    for (char c : tekst) {
+        if (c != ' ' && c != ',' && c != '.') {
+            wynik += c;
         }
     }
-    return tekst;
+    return wynik;
 }
 
 int main() {
     string tekst;
     cout << "Podaj tekst: ";
     getline(cin, tekst);
-    string wynik = zamienLitery(tekst);
-    cout << "Tekst po zamianie: " << wynik << endl;
+    string wynik = usunZnaki(tekst);
+    cout << "Tekst po usunieciu spacji, przecinkow i kropek: " << wynik << endl;
     return 0;
 }
