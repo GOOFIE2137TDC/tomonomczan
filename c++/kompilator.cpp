@@ -3,22 +3,20 @@
 
 using namespace std;
 
-string zamienZnaki(string tekst, string znaki) {
+string zamienLitery(string tekst) {
     for (char& c : tekst) {
-        if (znaki.find(c) != string::npos) {
-            c = '#';
+        if (c == 'a') {
+            c = 'y';
         }
     }
     return tekst;
 }
 
 int main() {
-    string tekst, znaki;
+    string tekst;
     cout << "Podaj tekst: ";
     getline(cin, tekst);
-    cout << "Podaj znaki do zamiany: ";
-    getline(cin, znaki);
-    string wynik = zamienZnaki(tekst, znaki);
+    string wynik = zamienLitery(tekst);
     cout << "Tekst po zamianie: " << wynik << endl;
     return 0;
 }
