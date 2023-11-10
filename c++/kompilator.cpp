@@ -1,11 +1,13 @@
 #include <iostream>
-#include <string>
+#include <bitset>
+
 using namespace std;
 
 int main() {
-    string s = "skipper", t = "private";
-    int i = s.compare("kowalski") > 0;
-    int j = s.compare("rico") < 0;
-    cout<<i+j<<endl;
+    int liczba;
+    cout << "Podaj liczbe calkowita z zakresu od -128 do 127: ";
+    cin >> liczba;
+    bitset<8> binarna(liczba);
+    cout << "Liczba w kodzie U2: " << binarna << endl;
     return 0;
 }
