@@ -46,9 +46,11 @@ int main()
     while (!magazyn.eof() == false)
     {
         magazyn >> nazwa >> ilosc >> cena;
-        owoc o(nazwa, ilosc, cena);
-        owoce.push_back(o);
+        // owoc o(nazwa, ilosc, cena);
+        // owoce.push_back(o);
+        owoce.emplace_back(owoc(nazwa, ilosc, cena));
     }
+    cout << owoce[3].getnazwa() << " " << owoce[3].wartosc(500);
     
     return 0;
 }
