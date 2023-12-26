@@ -1,7 +1,0 @@
-Owoc        Ilość       Cena
-Apple        310        5
-Pear           133       5
-Plum         482        2
-Lemon       832       4
-Lime          4            3
-Grapes      315        2
