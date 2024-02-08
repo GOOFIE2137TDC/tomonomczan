@@ -5,6 +5,22 @@
     <link rel="stylesheet" type="text/css" href="styl2.css">
     <title>Document</title>
 </head>
+
+<script type="text/javascript">
+    function licz() {
+        var paliwo = document.getElementById('paliwo').value;
+        var litry = document.getElementById('litry').value;
+        var koszt = 0;
+        if(paliwo == 1){
+            koszt = litry * 4.5;
+        }else if(paliwo == 2){
+            koszt = litry * 4.8;
+        }
+        document.getElementById("c").innerHTML = "Koszt paliwa: " + koszt + " zł";
+    }
+</script>
+
+
 <body>
     <div id="baner"><h1>Całodobowa stacja paliw</h1>
     <div id="menu">
@@ -19,7 +35,8 @@
             <br><input type="number">
             <br>Ile litrów:
             <br><input type="number">
-            <br><button>Oblicz</button>
+            <br><button type="button" onclick="licz()">Oblicz</button>
+            <br><span id="c"></span>
 
     </div>
     
