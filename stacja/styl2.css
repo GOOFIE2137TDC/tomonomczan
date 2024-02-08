@@ -2,12 +2,26 @@
     font-family: Cambria;
     text-align: center;
 }
+
+A {
+    padding: 0px 50px;
+    color: yellowgreen;
+}
+
+table, td {
+    border: 1px solid olivedrab;
+}
+table {
+    width: 90%;
+}
+
 #baner, #stopka {
     background-color: rgb(120, 0, 46);
     color: white;
     padding: 5px;
     font-size: 150%;
 }
+
 #menu {
     background-color: rgb(173, 20, 87);
     text-align: left;
@@ -36,4 +50,8 @@
 .auto {
     margin: 40px;
     padding: 10px;
+}
+
+.auto:hover {
+    border: dotted 1px yellowgreen;
 }
