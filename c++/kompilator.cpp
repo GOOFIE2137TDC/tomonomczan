@@ -1,63 +1,72 @@
-#include <algorithm>
-#include <vector>
-#include <iostream>
-#include <cstdlib>
-#include <ctime>
+#include <iostream> 
+#include <iomanip> 
+#include <vector> 
 
-using namespace std;
+using namespace std; 
 
-class Element {
-private:
+class Element 
+{
     int liczba;
-    static int licznik;
 
 public:
-    Element(int liczba) : liczba(liczba) {
-        if (liczba % 2 == 0) {
-            licznik++;
-        }
-        cout << "Konstruktor: Tworzenie obiektu Element\n";
+    Element(int liczba){
+        this->liczba = liczba;
+        cout << "Element (" << liczba << ") utworzony." << endl;
     }
 
-    ~Element() {
-        if (liczba % 2 == 0) {
-            licznik--;
-        }
-        cout << "Destruktor: Niszczenie obiektu Element\n";
-    }
-
-    void losuj() {
-        liczba = rand() % 201 - 100;
-        if (liczba % 2 == 0) {
-            licznik++;
-        }
-    }
-
-    int getLiczba() const {
+    int get(){
         return liczba;
     }
 
-    static int getLicznik() {
-        return licznik;
-    }
-};
-
-int Element::licznik = 0;
-
-int main() {
-    srand(time(0));
-    vector<Element> elements(100, Element(200));
-
-    for (Element& el : elements) {
-        el.losuj();
+    void put(int liczba){
+        this->liczba = liczba;
     }
 
-    int parzyste = count_if(elements.begin(), elements.end(), [](const Element& el) {
-        return el.getLiczba() % 2 == 0;
-    });
+}; 
 
-    cout << "Liczba elementów z parzystą wartością: " << parzyste << endl;
-    cout << "Wartość licznika: " << Element::getLicznik() << endl;
+ 
+
+class Zbior 
+
+{
+    Element elem1, elem2;                 // Powołanie do życia obiektów innej klasy
+
+public: 
+
+ 
+
+// lista konstruktorów Elementow ich kolejnosc nie jest istotna, 
+
+// kolejnosc konstruowania obiektów zależy od kolejności ich deklaracji, jak w linii powyżej (Element elem1, elem2)  
+
+ 
+
+Zbior() : elem2(2), elem1(1) //lista konstruktorów Elementow
+{
+    cout << "Zbior Elementow utworzony." << endl;
+} 
+
+    int get(int elem_nmbr){
+        return elem_nmbr == 1 ? elem1.get() : elem2.get();
+    }
+
+    void put(int elNmbr, int liczba){
+        if (elNmbr == 1){
+            elem1.put(liczba);
+        } else {
+            elem2.put(liczba);
+        }
+    }
+
+
+}; 
+
+ 
+
+ 
+
+main(){
+    Zbior kolekcja;
 
     return 0;
-}
+} 
