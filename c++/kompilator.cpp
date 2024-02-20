@@ -12,15 +12,19 @@ class Prostokat {
     int wysokosc;
 
 public:
-    Prostokat(int x, int y, int szerokosc, int wysokosc)
-        : x(x), y(y), szerokosc(szerokosc), wysokosc(wysokosc) {}
+    Prostokat() = default;
+    Prostokat(int px, int py, int ps, int pw)
+        : x(px), y(py), szerokosc(ps), wysokosc(pw) {}
 
-    bool czyDotyka(const Prostokat& inny) {
+    int getX() const { return x; }
+    int getY() const { return y; }
+
+
+    bool czyDotyka(Prostokat& inny) {
         return x < inny.x + inny.szerokosc && x + szerokosc > inny.x &&
                y < inny.y + inny.wysokosc && y + wysokosc > inny.y;
     }
 };
 
 int main(){
-    
 }
