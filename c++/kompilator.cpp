@@ -3,6 +3,8 @@
 #include <cstdlib>
 #include <ctime>
 
+using namespace std;
+
 class Prostokat {
     int x;
     int y;
@@ -18,3 +20,7 @@ public:
                y < inny.y + inny.wysokosc && y + wysokosc > inny.y;
     }
 };
+
+int main(){
+    
+}
