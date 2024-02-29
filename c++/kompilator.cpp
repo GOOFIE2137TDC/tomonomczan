@@ -1,43 +1,23 @@
 #include <iostream>
+#include <string>
 
 using namespace std;
 
-class Kwadrat{
-    double dBoku;
+class Zwierze {
+protected:
+    string imie;
+    string gatunek;
 
 public:
+    Zwierze(string imie, string gatunek) : imie(imie), gatunek(gatunek) {}
 
-Kwadrat() = default;
-
-Kwadrat(double bok){
-    dBoku = bok;
-}
-double getBok(){
-    return dBoku;
-}
-double pole(){
-    return dBoku*dBoku;
-}
-double obwod(){
-    return 4*dBoku;
-}
-
+    virtual void przedstawSie() {
+        cout << "Cześć, jestem " << imie << " i jestem " << gatunek << ".\n";
+    }
 };
 
-class Szescian : public Kwadrat{
+class Kot : public Zwierze {
+};
 
-public:
-
-Szescian() = default;
-
-Szescian(double bok) : Kwadrat(bok){}
-
-double pole(){
-    return 6*Kwadrat::pole();
-}
-
-double objetosc(){
-    return Kwadrat::pole()*getBok();
-}
-
+class Pies : public Zwierze {
 };
