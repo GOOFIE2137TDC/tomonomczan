@@ -17,7 +17,31 @@ public:
 };
 
 class Kot : public Zwierze {
+    public:
+    Kot(string imie) : Zwierze(imie, "kot") {}
+    
+    void przedstawSie() override{
+        Zwierze::przedstawSie();
+        cout << "Mruczę przy głaskaniu.\n";
+    }
 };
 
 class Pies : public Zwierze {
+    public:
+    Pies(string imie) : Zwierze(imie, "pies") {}
+    
+    void przedstawSie() override{
+        Zwierze::przedstawSie();
+        cout << "Macham ogonem.\n";
+    }
 };
+
+int main() {
+    Kot z1("Nazgul");
+    Pies z2("Varg");
+
+    z1.przedstawSie();
+    z2.przedstawSie();
+
+    return 0;
+}
