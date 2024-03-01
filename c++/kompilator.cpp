@@ -4,7 +4,7 @@
 using namespace std;
 
 class Stos {
-private:
+protected:
     vector<int> stos;
 
 public:
@@ -34,13 +34,29 @@ public:
     }
 };
 
+class SumaStos : public Stos {
+public:
+    int suma() {
+        int suma = 0;
+        for (int i = 0; i < stos.size(); i++) {
+            suma += stos[i];
+        }
+        return suma;
+    }
+
+};
+
+
 int main() {
-    Stos s;
+    SumaStos s;
     s.push(1);
     s.push(2);
     s.push(3);
     cout << s.top() << endl; 
+    cout << s.suma() << endl; 
     s.pop();
     cout << s.top() << endl; 
+    cout << s.suma() << endl; 
     return 0;
 }
+
