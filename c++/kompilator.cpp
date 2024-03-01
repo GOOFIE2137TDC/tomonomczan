@@ -1,47 +1,27 @@
 #include <iostream>
-#include <string>
+#include <stack>
+#include <vector>
 
 using namespace std;
 
-class Zwierze {
-protected:
-    string imie;
-    string gatunek;
+class Stos {
+    private:
+        stack<int> stos;
+        vector<int> max;
+        vector<int> min;
 
-public:
-    Zwierze(string imie, string gatunek) : imie(imie), gatunek(gatunek) {}
-
-    virtual void przedstawSie() {
-        cout << "Cześć, jestem " << imie << " i jestem " << gatunek << ".\n";
-    }
-};
-
-class Kot : public Zwierze {
     public:
-    Kot(string imie) : Zwierze(imie, "kot") {}
-    
-    void przedstawSie() override{
-        Zwierze::przedstawSie();
-        cout << "Mruczę przy głaskaniu.\n";
-    }
-};
-
-class Pies : public Zwierze {
-    public:
-    Pies(string imie) : Zwierze(imie, "pies") {}
-    
-    void przedstawSie() override{
-        Zwierze::przedstawSie();
-        cout << "Macham ogonem.\n";
-    }
+        void push(int x) {
+            cin >> x;
+            stos.push(x);
+            if (max.empty() || x > max.back()) {
+                max.push_back(x);
+            } 
+            else {
+                max.push_back(max.back());
+            }
+        }
 };
 
 int main() {
-    Kot z1("Nazgul");
-    Pies z2("Varg");
-
-    z1.przedstawSie();
-    z2.przedstawSie();
-
-    return 0;
 }
