@@ -1,62 +1,47 @@
 #include <iostream>
-#include <vector>
 
 using namespace std;
 
-class Stos {
-protected:
-    vector<int> stos;
+class Osoba {
+    string imie;
+    string nazwisko;
+    int nrDowodu;
 
 public:
-    void push(int value) {
-        stos.push_back(value);
-    }
-
-    void pop() {
-        if (!stos.empty()) {
-            stos.pop_back();
-        } else {
-            cout << "Stos jest pusty.\n";
+    Osoba(string pimie, string pnazwisko, int pnrDowodu) {
+        imie{pimie}, nazwisko{pnazwisko}, nrDowodu{pnrDowodu}{
+            cout<<"Osoba\n";
         }
     }
-
-    int top() {
-        if (!stos.empty()) {
-            return stos.back();
-        } else {
-            cout << "Stos jest pusty.\n";
-            return -1;
-        }
+    ~Osoba(){
+        cout<<"Destruktor Osoba\n";
     }
 
-    bool empty() {
-        return stos.empty();
+    string getImie() {
+        return imie;
+    }
+    string getNazwisko() {
+        return nazwisko;
+    }
+    int getNrDowodu() {
+        return nrDowodu;
+    }
+
+    void wypisz() {
+        cout << "Imie: " << imie << endl;
+        cout << "Nazwisko: " << nazwisko << endl;
+        cout << "Nr dowodu: " << nrDowodu << endl;
+    }
+
+    void piszKimJestes() {
+        cout << "Osoba\n";
     }
 };
 
-class SumaStos : public Stos {
-public:
-    int suma() {
-        int suma = 0;
-        for (int i = 0; i < stos.size(); i++) {
-            suma += stos[i];
-        }
-        return suma;
-    }
-
-};
-
-
-int main() {
-    SumaStos s;
-    s.push(1);
-    s.push(2);
-    s.push(3);
-    cout << s.top() << endl; 
-    cout << s.suma() << endl; 
-    s.pop();
-    cout << s.top() << endl; 
-    cout << s.suma() << endl; 
+int main(){
+    Osoba o;
+    o.piszKimJestes();
+    o.wypisz();
     return 0;
-}
 
+}
