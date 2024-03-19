@@ -1,20 +1,34 @@
 #include <iostream>
 
-int main() {
-    int liczba;
-    std::cout << "Podaj liczbę od 10 do 50: ";
-    std::cin >> liczba;
+using namespace std;
 
-    if ((liczba >= 10 && liczba <= 50)) {
-            std::cout << "Podana liczba to: " << liczba << "\n";
-            if (liczba % 2 == 0) {
-                std::cout << "Liczba jest parzysta.\n";
-            } 
-            else {
-                std::cout << "Liczba jest nieparzysta.\n";
-            }
+class instrument {
+    string trabka;
+    string beben;
+    string fortepian;
+
+public:
+    instrument(string trabka, string beben, string fortepian) : trabka(trabka), beben(beben), fortepian(fortepian) {} 
+
+    void graj() {
+        cout << "Trabka: " << trabka << endl;
+        cout << "Beben: " << beben << endl;
+        cout << "Fortepian: " << fortepian << endl;
+    }
+
+    void winstrument() {
+        if (cin >> trabka) {
+            cout << "tururu" << trabka << endl;
         }
-        
+        if (cin >> beben) {
+            cout << "bum bum" << beben << endl;
+        }
+        if (cin >> fortepian) {
+            cout << "plum plum" << fortepian << endl;
+        }
+    }
+};
 
-    return 0;
+int main() {
+    Instrument:instrument("trabka", "beben", "fortepian");
 }
