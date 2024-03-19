@@ -36,3 +36,10 @@ public:
         }
     }
 };
+
+int main() {
+    instrument *i = new instrument("Trabka", "Beben", "Fortepian");
+    i->winstrument();
+    delete i;
+    return 0;
+}
