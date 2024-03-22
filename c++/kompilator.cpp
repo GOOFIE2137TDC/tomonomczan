@@ -41,7 +41,8 @@ int main() {
     orkiestra.push_back(new Skrzypce);
 
     cout << "Koncert wirtuozów: \n";
-    for int i = 0; i < 10; i++) {
+
+    for (int i = 0; i < 10; i++) {
         orkiestra[rand() % orkiestra.size()]->graj();
     }
 
