@@ -1,45 +1,55 @@
 #include <iostream>
+#include <string>
+#include <vector>
+#include <cstdlib>
 #include <ctime>
 
 using namespace std;
 
-class instrument {
-    string trabka;
-    string beben;
-    string fortepian;
-
+class Instrument {
 public:
-    instrument(string trabka, string beben, string fortepian) : trabka(trabka), beben(beben), fortepian(fortepian) {} 
+    virtual void graj() const = 0; // czysta funkcja wirtualna
+};
 
-    virtual void winstrument() {
-        for (int i = 0; i < 3; i++) {
-            cout << "Wybierz instrument: " << endl;
-            cout << "1. Trabka" << endl;
-            cout << "2. Beben" << endl;
-            cout << "3. Fortepian" << endl;
-            int wybor;
-            cin >> wybor;
-            switch (wybor) {
-                case 1:
-                    cout << "Wybrano: " << trabka << endl;
-                    break;
-                case 2:
-                    cout << "Wybrano: " << beben << endl;
-                    break;
-                case 3:
-                    cout << "Wybrano: " << fortepian << endl;
-                    break;
-                default:
-                    cout << "Nie ma takiego instrumentu" << endl;
-                    break;
-            }
-        }
+class Gitara : public Instrument {
+public:
+    void graj() const override {
+        cout << "Dźwięk gitary\n";
+    }
+};
+
+class Pianino : public Instrument {
+public:
+    void graj() const override {
+        cout << "Dźwięk pianina\n";
+    }
+};
+
+class Skrzypce : public Instrument {
+public:
+    void graj() const override {
+        cout << "Dźwięk skrzypiec\n";
     }
 };
 
 int main() {
-    instrument *i = new instrument("Trabka", "Beben", "Fortepian");
-    i->winstrument();
-    delete i;
+    srand(time(0)); // inicjalizacja generatora liczb losowych
+
+    vector<Instrument*> orkiestra;
+    orkiestra.push_back(new Gitara());
+    orkiestra.push_back(new Pianino());
+    orkiestra.push_back(new Skrzypce());
+
+    cout << "Koncert:\n";
+    for (int i = 0; i < 10; ++i) {
+        int indeks = rand() % orkiestra.size(); // losowanie indeksu
+        orkiestra[indeks]->graj();
+    }
+
+    // zwolnienie pamięci
+    for (Instrument* instrument : orkiestra) {
+        delete instrument;
+    }
+
     return 0;
 }
