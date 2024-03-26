@@ -21,3 +21,10 @@ public:
         return 4.0/3.0 * PI * r * r * r;
     }
 };
+
+int main() {
+    Kula k(5);
+    cout << "Pole powierzchni bocznej kuli: " << k.polePowierzchniBocznej() << endl;
+    cout << "Objetosc kuli: " << k.objetosc() << endl;
+    return 0;
+}
