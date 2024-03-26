@@ -1,55 +1,23 @@
 #include <iostream>
-#include <string>
-#include <vector>
-#include <cstdlib>
-#include <ctime>
 
 using namespace std;
 
-class Instrument {
+const double PI = 3.14159265358979323846;
+
+class Bryla {
 public:
-    virtual void graj() const = 0; 
+    virtual double polePowierzchniBocznej() = 0;
+    virtual double objetosc() = 0;
 };
 
-class Gitara : public Instrument {
+class Kula : public Bryla {
+    double r;
 public:
-    void graj() const override {
-        cout << "brzdęk brzdęk\n";
+    Kula(double r) : r(r) {}
+    double polePowierzchniBocznej() override {
+        return 4 * PI * r * r;
+    }
+    double objetosc() override {
+        return 4.0/3.0 * PI * r * r * r;
     }
 };
-
-class Pianino : public Instrument {
-public:
-    void graj() const override {
-        cout << "tun tun\n";
-    }
-};
-
-class Skrzypce : public Instrument {
-public:
-    void graj() const override {
-        cout << "skrzyp skrzyp\n";
-    }
-};
-
-int main() {
-    srand(time(0));
-
-    vector<Instrument*> orkiestra;
-    orkiestra.push_back(new Gitara);
-    orkiestra.push_back(new Pianino);
-    orkiestra.push_back(new Skrzypce);
-
-    cout << "Koncert wirtuozów: \n";
-
-    for (int i = 0; i < 10; i++) {
-        orkiestra[rand() % orkiestra.size()]->graj();
-    }
-
-    for (const auto& instrument : orkiestra) {
-        instrument->graj();
-    }
-
-
-    return 0;
-}
