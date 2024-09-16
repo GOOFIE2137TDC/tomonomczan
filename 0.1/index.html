@@ -18,17 +18,17 @@
         <br><button onclick="addNote()">Save</button>
 
     </div>
-    <script>
-        function addNote() {
-            const noteInput = document.getElementById('noteInput');
-            const notesList = document.getElementById('notesList');
-            const newNote = document.createElement('li');
+        <script>
+            function addNote() {
+                const noteInput = document.getElementById('noteInput');
+                const notesList = document.getElementById('notesList');
+                const newNote = document.createElement('li');
 
-            newNote.textContent = noteInput.value;
-            notesList.appendChild(newNote);
-            noteInput.value = '';
-        }
-    </script>
+                newNote.textContent = noteInput.value;
+                notesList.appendChild(newNote);
+                noteInput.value = '';
+            }
+        </script>
     
 </body>
 </html>
