@@ -33,4 +33,4 @@ const App = () => {
   )
 }
 
-export default Appc
+export default App
