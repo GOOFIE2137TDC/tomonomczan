@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
-
+//zadeklarowanie tytułu strony
 const Title = (props) => {
   return (
     <div>
@@ -8,7 +8,7 @@ const Title = (props) => {
     </div>
   )
 }
-
+//deklaracja wyświetlania bierzącej anegdoty
 const Anecdotes = (props) => {
   return(
     <div>
@@ -17,7 +17,7 @@ const Anecdotes = (props) => {
     </div>
   )
 }
-
+//deklaracja przycisków
 const Button = (props) => {
   return (
   <div>
@@ -25,7 +25,7 @@ const Button = (props) => {
   </div>
   )
 }
-
+//deklaradcja wyświetlania anegdoty z największą ilością głosów
 const MostVotes = (props) => {
   return (
     <div>
@@ -34,7 +34,7 @@ const MostVotes = (props) => {
     </div>
   )
 }
-
+//tablica przechowująca anegdoty 
 const App = () => {
   const anecdotes = [
     'If it hurts, do it more often.',
@@ -46,23 +46,23 @@ const App = () => {
     'Programming without an extremely heavy use of console.log is same as if a doctor would refuse to use x-rays or blood tests when diagnosing patients.',
     'The only way to go fast, is to go well.'
   ]
-   
+   //stan początkowy równy 0
   const [selected, setSelected] = useState(0)
   const [voted, setVoted] = useState(Array(anecdotes.length).fill(0))
-
+  //obsługa przycisku, który zmienia losowo anegdotę
   const nextClick = () => {
     setSelected(Math.floor(Math.random() * anecdotes.length))
   }
-
+  //przycisk od głosowania, zwiększa ilość głosów
   const voteClick = () => {
     const newVotes = [...voted]
     newVotes[selected] += 1
     setVoted(newVotes)
   } 
-  
+  //anegdota z największą ilością głosów
   const max = Math.max(...voted)
   const index = voted.indexOf(max)
-
+  //przypinanie wyświetlania komponentów do funkcji powyżej
   return (
     <div>
       <Title text='Anecdote of the day'/>
