@@ -1,78 +1,78 @@
-import { useState } from 'react'
+import React, { useState } from "react";
 
-//zadeklarowanie tytułu strony
-const Title = (props) => {
-  return (
-    <div>
-      <h1>{props.text}</h1>
-    </div>
-  )
-}
-//deklaracja wyświetlania bierzącej anegdoty
-const Anecdotes = (props) => {
-  return(
-    <div>
-      <div>{props.anecdotes}</div>
-      <div>has {props.votes} votes</div>
-    </div>
-  )
-}
-//deklaracja przycisków
 const Button = (props) => {
+  return <button onClick={props.handleClick}>{props.text}</button>;
+};
+
+const Statistic = (props) => {
   return (
-  <div>
-    <button onClick={props.handleClick}>{props.text}</button>
-  </div>
-  )
-}
-//deklaradcja wyświetlania anegdoty z największą ilością głosów
-const MostVotes = (props) => {
-  return (
-    <div>
-      <div>{props.anecdotes}</div>
-      <div>has {props.max} votes</div>
-    </div>
-  )
-}
-//tablica przechowująca anegdoty 
-const App = () => {
-  const anecdotes = [
-    'If it hurts, do it more often.',
-    'Adding manpower to a late software project makes it later!',
-    'The first 90 percent of the code accounts for the first 10 percent of the development time...The remaining 10 percent of the code accounts for the other 90 percent of the development time.',
-    'Any fool can write code that a computer can understand. Good programmers write code that humans can understand.',
-    'Premature optimization is the root of all evil.',
-    'Debugging is twice as hard as writing the code in the first place. Therefore, if you write the code as cleverly as possible, you are, by definition, not smart enough to debug it.',
-    'Programming without an extremely heavy use of console.log is same as if a doctor would refuse to use x-rays or blood tests when diagnosing patients.',
-    'The only way to go fast, is to go well.'
-  ]
-   //stan początkowy równy 0
-  const [selected, setSelected] = useState(0)
-  const [voted, setVoted] = useState(Array(anecdotes.length).fill(0))
-  //obsługa przycisku, który zmienia losowo anegdotę
-  const nextClick = () => {
-    setSelected(Math.floor(Math.random() * anecdotes.length))
+    <tr>
+      <td>{props.text}</td>
+      <td>{props.value}</td>
+    </tr>
+  );
+};
+
+const Statistics = (props) => {
+  const all = props.good + props.neutral + props.bad;
+  var average = 0;
+  var positive = 0;
+
+  if (all !== 0) {
+    average = (props.good - props.bad) / all;
+    positive = (props.good / all) * 100;
   }
-  //przycisk od głosowania, zwiększa ilość głosów
-  const voteClick = () => {
-    const newVotes = [...voted]
-    newVotes[selected] += 1
-    setVoted(newVotes)
-  } 
-  //anegdota z największą ilością głosów
-  const max = Math.max(...voted)
-  const index = voted.indexOf(max)
-  //przypinanie wyświetlania komponentów do funkcji powyżej
+
+  if (all === 0) {
+    return <div>No feedback given</div>;
+  } else {
+    return (
+      <div>
+        <table>
+          <tbody>
+            <Statistic text="good" value={props.good}></Statistic>
+            <Statistic text="neutral" value={props.neutral}></Statistic>
+            <Statistic text="bad" value={props.bad}></Statistic>
+            <Statistic text="all" value={all}></Statistic>
+            <Statistic text="average" value={average}></Statistic>
+            <Statistic text="positive" value={positive}></Statistic>
+          </tbody>
+        </table>
+      </div>
+    );
+  }
+};
+
+const App = () => {
+  const [good, setGoodValue] = useState(0);
+  const [neutral, setNeutralValue] = useState(0);
+  const [bad, setBadValue] = useState(0);
+
+  const addGoodValue = (value) => {
+    setGoodValue(value);
+  };
+
+  const addNeutralValue = (value) => {
+    setNeutralValue(value);
+  };
+
+  const addBadValue = (value) => {
+    setBadValue(value);
+  };
+
   return (
     <div>
-      <Title text='Anecdote of the day'/>
-      <Anecdotes anecdotes={anecdotes[selected]} votes={voted[selected]}/>
-      <Button handleClick={nextClick} text='next anecdote'/>
-      <Button handleClick={voteClick} text='vote'/>
-      <Title text='Anecdote with most votes'/>
-      <MostVotes anecdotes={anecdotes[index]} max={max} />
+      <h2>give feedback</h2>
+      <Button handleClick={() => addGoodValue(good + 1)} text="good"></Button>
+      <Button
+        handleClick={() => addNeutralValue(neutral + 1)}
+        text="neutral"
+      ></Button>
+      <Button handleClick={() => addBadValue(bad + 1)} text="bad"></Button>
+      <h2>statistics</h2>
+      <Statistics good={good} neutral={neutral} bad={bad} />
     </div>
-  )
-}
+  );
+};
 
 export default App;
