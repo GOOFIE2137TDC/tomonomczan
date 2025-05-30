@@ -6,6 +6,8 @@ const morgan = require('morgan')
 
 // Tworzymy instancję aplikacji Express
 const app = express()
+// Definiujemy stałą 'baseUrl', która będzie przechowywać bazowy URL API
+const baseUrl = 'http://localhost:3001/api/notes'
 
 // Middleware Expressa, który pozwala odczytywać dane JSON przesyłane w treści zapytań HTTP (np. w POST)
 app.use(express.json())
