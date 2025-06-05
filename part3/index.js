@@ -1,72 +1,130 @@
-// Import biblioteki Express — frameworka do tworzenia serwerów HTTP w Node.js
+require('dotenv').config()
+
+
 const express = require('express')
-
-// Import biblioteki Morgan — middleware służącego do logowania żądań HTTP w konsoli
-const morgan = require('morgan')
-
-// Tworzymy instancję aplikacji Express
 const app = express()
-// Definiujemy stałą 'baseUrl', która będzie przechowywać bazowy URL API
-const baseUrl = 'http://localhost:3001/api/notes'
+const morgan = require('morgan')
+const cors = require('cors')
+const Person = require('./models/person')
 
-// Middleware Expressa, który pozwala odczytywać dane JSON przesyłane w treści zapytań HTTP (np. w POST)
+app.use(cors())
+morgan.token('body', (request) => JSON.stringify(request.body))
 app.use(express.json())
+app.use(morgan('tiny'))
+app.use(express.static('build'))
 
-// Tworzymy niestandardowy token dla Morgan — 'post-data'
-// Token będzie zawierał dane przesłane w zapytaniu POST (czyli req.body) jako string JSON
-// W przypadku innych metod (GET, PUT itd.), token będzie pustym stringiem
-morgan.token('post-data', (req, res) => {
-  return req.method === 'POST' ? JSON.stringify(req.body) : ''
+
+app.get('/api/persons',(request, response, next) => {
+	Person
+		.find({})
+		.then(result => {
+			response.json(result)
+		})
+		.catch(error => next(error))
 })
 
-// Rejestrujemy middleware Morgan w aplikacji Express
-// Używamy formatu logowania 'tiny', ale dodajemy też nasz token 'post-data' na końcu
-// Efekt: każde żądanie HTTP będzie logowane z metodą, URL-em, statusem, czasem odpowiedzi oraz danymi POST (jeśli istnieją)
-app.use(morgan(':method :url :status :res[content-length] - :response-time ms :post-data'))
+app.get('/info',(request, response, next) => {
+	const date = new Date()
+	Person
+		.find({})
+		.then(result => {
+			response.send(
+				`<p>Phonebook has info for ${result.length} persons</p>
+             <br>
+             <p>${date}</p>`
+			)
+		})
+		.catch(error => next(error))
 
-// Przykładowa lista notatek (pełni funkcję tymczasowej "bazy danych" w pamięci RAM)
-let notes = [
-  {
-    id: "1",
-    content: "HTML is easy",
-    important: true
-  },
-  {
-    id: "2",
-    content: "Browser can execute only JavaScript",
-    important: false
-  },
-  {
-    id: "3",
-    content: "GET and POST are the most important methods of HTTP protocol",
-    important: true
-  }
-]
-
-// Endpoint GET dla ścieżki głównej ('/')
-// Odpowiada zwykłym tekstem HTML, który przeglądarka wyświetli jako stronę
-app.get('/', (request, response) => {
-  response.send('<h1>Hello World!</h1>')
 })
 
-// Endpoint GET dla '/api/notes'
-// Zwraca listę wszystkich notatek w formacie JSON
-app.get('/api/notes', (request, response) => {
-  response.json(notes)
+app.get('/api/persons/:id', (request, response, next) => {
+
+	Person
+		.findById(request.params.id)
+		.then(person => {
+			if(person){
+				response.json(person)
+			}else{
+				response.status(404).end()
+			}
+		})
+		.catch(error => next(error))
 })
 
-// Endpoint POST dla '/api/notes'
-// Przyjmuje nową notatkę (z ciała żądania) i dodaje ją do listy 'notes'
-// Zwraca dodaną notatkę jako odpowiedź, z kodem statusu 201 (Created)
-app.post('/api/notes', (request, response) => {
-  const note = request.body // Pobieramy dane przesłane w żądaniu
-  notes.push(note)          // Dodajemy nową notatkę do listy
-  response.status(201).json(note) // Odpowiadamy z nową notatką i statusem 201
+app.delete('/api/persons/:id', (request, response, next) => {
+	//const id = Number(request.params.id)
+	//const person = Person.filter(persons => persons.id === id)
+	Person.findByIdAndRemove(request.params.id)
+		.then(() => {
+			response.status(204).end()
+		})
+		.catch(error => next(error))
 })
 
-// Uruchomienie serwera aplikacji nasłuchującego na porcie 3001
-// Po uruchomieniu wyświetla komunikat w konsoli
-const PORT = 3001
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`)
+
+const postMorgan = morgan(':method :url :status :res[content-length] - :response-time ms :body')
+
+app.post('/api/persons', postMorgan, (request, response, next) => {
+	const body = request.body
+
+	if(!body.name || !body.number){
+		return response.status(400).json({
+			error: 'name or number missing'
+		})
+	}else{
+		const person = new Person({
+			name: body.name,
+			number: body.number,
+		})
+
+		person.save()
+			.then(person => {
+				response.json(person)
+			})
+			.catch(error => next(error))
+	}
 })
+
+app.put('/api/persons/:id', (request, response, next) => {
+	const { name, number } = request.body
+
+	Person.findByIdAndUpdate(
+		request.params.id,
+		{ name, number },
+		{ new: true, runValidators: true, context: 'query' }
+	)
+		.then(updatedPerson => {
+			response.json(updatedPerson)
+		})
+		.catch(error => next(error))
+})
+
+
+const unknownEndpoint = (request, response) => {
+	response.status(404).send({ error: 'unknown endpoint' })
+}
+
+// handler of requests with unknown endpoint
+app.use(unknownEndpoint)
+
+const errorHandler = (error, request, response, next) => {
+	console.error(error.message)
+
+	if (error.name === 'CastError') {
+		return response.status(400).send({ error: 'malformatted id' })
+	}else if (error.name === 'ValidationError'){
+		return response.status(400).json({ error: error.message })
+	}
+
+	next(error)
+}
+
+app.use(errorHandler)
+
+
+// eslint-disable-next-line no-undef
+const port = process.env.PORT
+app.listen(port, () =>
+	console.log(`Server running on http://localhost:${port}`)
+)
