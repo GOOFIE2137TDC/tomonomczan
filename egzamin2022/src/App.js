@@ -1,24 +1,22 @@
-import logo from './logo.svg';
-import './App.css';
-
 function App() {
+
+  const courses =[
+    "Programowanie w C#",
+    "Angular dla początkujących",
+    "Kurs Django"
+  ]
+  
+  const handleSubmit = (event) => {
+    console.log
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <form handleSubmit>
+      <h1>Liczba kursów:
+        {courses.length}
+      </h1>
+    </form>
+    
   );
 }
 
