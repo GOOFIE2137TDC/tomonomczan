@@ -1,23 +1,18 @@
+import "bootstrap/dist/css/bootstrap.css";
+
 function App() {
 
-  const courses =[
-    "Programowanie w C#",
-    "Angular dla początkujących",
-    "Kurs Django"
-  ]
-  
-  const handleSubmit = (event) => {
-    console.log
+  function onSubmit(event) {
+
+    event.preventDefault();
+    const title = event.target.elements.filmTitle.value;
+    const type = event.target.elements.filmType.value;
+    console.log(`tytul: ${title}, rodzaj: ${type}`);
+
   }
 
-  return (
-    <form handleSubmit>
-      <h1>Liczba kursów:
-        {courses.length}
-      </h1>
-    </form>
-    
-  );
+  
+
 }
 
 export default App;
