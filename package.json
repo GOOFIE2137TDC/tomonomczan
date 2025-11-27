@@ -1,0 +1,13 @@
+{
+  "name": "tomonomczan",
+  "version": "1.0.0",
+  "private": true,
+  "workspaces": [
+    "egzamin2022"
+  ],
+  "scripts": {
+    "start": "npm run start --workspace=egzamin2022",
+    "build": "npm run build --workspace=egzamin2022",
+    "test": "npm run test --workspace=egzamin2022"
+  }
+}
